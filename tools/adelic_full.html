@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>TQH/RSN-8638: p-адические пропагаторы, CKM/PMNS, адельная решётка</title>
+<title>TQH/RSN-8638: p-adic Propagators, CKM/PMNS, Adelic Lattice</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
 <style>
@@ -26,19 +26,19 @@ footer{text-align:center;margin-top:30px;font-size:0.85rem;color:#5b6e8c}
 </style>
 </head>
 <body>
-<h1>🌐 TQH / RSN-8638 – Адельная формализация</h1>
+<h1>🌐 TQH / RSN-8638 – Adelic Formalism</h1>
 <div class="tabs">
-<div class="tab active" data-tab="mass">Массы</div>
+<div class="tab active" data-tab="mass">Masses</div>
 <div class="tab" data-tab="qec">QECC</div>
-<div class="tab" data-tab="prop">p-адические</div>
+<div class="tab" data-tab="prop">p-adic</div>
 <div class="tab" data-tab="ckm">CKM/PMNS</div>
-<div class="tab" data-tab="graph">Граф</div>
+<div class="tab" data-tab="graph">Graph</div>
 </div>
 
 <div id="mass" class="tab-content active">
 <div class="container">
 <div class="card">
-<h2>⚡ Калькулятор</h2>
+<h2>⚡ Calculator</h2>
 <div class="formula">Mₙ = mₑ·e^{k·n}</div>
 <label>n = </label><input type="number" id="nInput" value="1166">
 <button onclick="calcMass()">OK</button>
@@ -47,7 +47,7 @@ footer{text-align:center;margin-top:30px;font-size:0.85rem;color:#5b6e8c}
 </div>
 <div class="card wide">
 <h2>📊 PDG</h2>
-<table><thead><tr><th>Частица</th><th>n</th><th>M_RSN</th><th>M_PDG</th><th>Δ%</th><th>Статус</th></tr></thead><tbody id="tbl"></tbody></table>
+<table><thead><tr><th>Particle</th><th>n</th><th>M_RSN</th><th>M_PDG</th><th>Δ%</th><th>Status</th></tr></thead><tbody id="tbl"></tbody></table>
 </div>
 </div></div>
 
@@ -56,25 +56,25 @@ footer{text-align:center;margin-top:30px;font-size:0.85rem;color:#5b6e8c}
 <h2>🔒 QECC [[8638, k, 155]]</h2>
 <p>d=⌊1/k⌋=155</p>
 <p>P<sub>log</sub>: <span id="pLog">—</span></p>
-<p>C<sub>mem</sub>: <span id="memCap">—</span> бит</p>
-<p>E<sub>bit</sub>: <span id="landauer">—</span> эВ</p>
-<button onclick="calcQECC()">Обновить</button></div></div>
+<p>C<sub>mem</sub>: <span id="memCap">—</span> bits</p>
+<p>E<sub>bit</sub>: <span id="landauer">—</span> eV</p>
+<button onclick="calcQECC()">Update</button></div></div>
 
 <div id="prop" class="tab-content">
 <div class="card">
-<h2>🧪 p-адическая амплитуда</h2>
+<h2>🧪 p-adic Amplitude</h2>
 <div class="formula">Δ(x) = ∏_{p∈{2,7,617}} Δ_p(x)</div>
 <select id="partSel">
 <option value="0">e (n=0)</option><option value="827.036">μ (n=827)</option>
 <option value="1165.79">p (n=1166)</option><option value="1925">H (n=1925)</option>
 </select>
-<button onclick="calcAmp()">Считать</button>
+<button onclick="calcAmp()">Calculate</button>
 <div id="propRes" class="result"></div></div></div>
 
 <div id="ckm" class="tab-content">
 <div class="card">
-<h2>🔀 CKM/PMNS из аделей</h2>
-<table><thead><tr><th>Параметр</th><th>RSN</th><th>PDG</th><th>Откл.</th></tr></thead>
+<h2>🔀 CKM/PMNS from Adelic Structure</h2>
+<table><thead><tr><th>Parameter</th><th>RSN</th><th>PDG</th><th>Dev.</th></tr></thead>
 <tbody id="ckmBody">
 <tr><td>θ₁₂ CKM</td><td id="c12">—</td><td>13.02°</td><td id="c12e">—</td></tr>
 <tr><td>θ₂₃ CKM</td><td id="c23">—</td><td>2.38°</td><td id="c23e">—</td></tr>
@@ -85,12 +85,12 @@ footer{text-align:center;margin-top:30px;font-size:0.85rem;color:#5b6e8c}
 <tr><td>θ₁₃ PMNS</td><td id="p13">—</td><td>8.7°</td><td id="p13e">—</td></tr>
 <tr><td>δ_CP PMNS</td><td id="pd">—</td><td>276.9°</td><td id="pde">—</td></tr>
 </tbody></table>
-<button onclick="calcCKM()">Рассчитать</button></div></div>
+<button onclick="calcCKM()">Calculate</button></div></div>
 
 <div id="graph" class="tab-content">
 <div class="card wide">
-<h2>🕸️ Адельная решётка</h2>
-<p>Цвета: <span style="color:red">p=2</span> <span style="color:green">p=7</span> <span style="color:blue">p=617</span></p>
+<h2>🕸️ Adelic Lattice</h2>
+<p>Colors: <span style="color:red">p=2</span> <span style="color:green">p=7</span> <span style="color:blue">p=617</span></p>
 <div id="network" class="graph-container"></div></div></div>
 
 <footer>PDG 2024. TQH/RSN-8638. tools/adelic_full.html</footer>
@@ -113,7 +113,7 @@ function render(){
 }
 window.calcMass=function(){
   const n=parseFloat(document.getElementById('nInput').value);if(isNaN(n))return;
-  const m=M(n);document.getElementById('massResult').innerHTML=`M=${m.toExponential(6)} МэВ (${(m/1000).toExponential(4)} ГэВ)`;
+  const m=M(n);  document.getElementById('massResult').innerHTML=`M=${m.toExponential(6)} MeV (${(m/1000).toExponential(4)} GeV)`;
   const ctx=document.getElementById('massChart').getContext('2d');const xs=[],ys=[];
   for(let i=0;i<=2500;i+=50){xs.push(i);ys.push(M(i));}
   if(window.ch)window.ch.destroy();
@@ -127,7 +127,7 @@ function calcQECC(){
 window.calcAmp=function(){
   const n=parseFloat(document.getElementById('partSel').value);let p=1;
   for(let q of[2,7,617])p*=1/(1-Math.pow(q,-2));
-  document.getElementById('propRes').innerHTML=`Амплитуда ≈ ${(p*Math.exp(-M(n)/1000)).toExponential(4)}`;
+  document.getElementById('propRes').innerHTML=`Amplitude ≈ ${(p*Math.exp(-M(n)/1000)).toExponential(4)}`;
 };
 window.calcCKM=function(){
   const t12=eps*180,t23=Math.atan(Math.log(7)/Math.log(2)/100)*180/Math.PI;

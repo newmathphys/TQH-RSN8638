@@ -227,9 +227,11 @@ TQH-RSN8638/
 │   ├── TQH_paper_clean.tex          # LaTeX preprint (PRD format)
 │   ├── VERIFICATION_README.txt      # Full verification protocol
 │   ├── ADELLIC_THEOREM.md           # Rigorous generations theorem proof
-│   ├── OPEN_MATH_PROBLEMS.md        # 3 open mathematical problems
+│   ├── OPEN_MATH_PROBLEMS.md        # 5 open mathematical problems
 │   ├── HONEST_AUDIT.md              # Honest audit of the theory
-│   └── РЕЗУЛЬТАТЫ_ВЕРИФИКАЦИИ.md    # Complete verification results
+│   ├── ARCHITECTURE.md              # Theory architecture overview
+│   ├── MATHEMATICS.md               # Complete mathematical foundations
+│   └── LITERATURE.md                # Key literature references
 ├── ARCHITECTURE.md                  # Architecture overview (English)
 ├── MATHEMATICS.md                   # Mathematical foundations (English)
 ├── LITERATURE.md                    # Literature references (English)

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TQH/RSN-8638: Адельный QECC-калькулятор</title>
+<title>TQH/RSN-8638: Adelic QECC Calculator</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 body{font-family:'Segoe UI',sans-serif;max-width:1300px;margin:20px auto;padding:20px;background:#f5f7fc;color:#1a2a4f}
@@ -27,38 +27,38 @@ a{color:#1e3a8a}
 </head>
 <body>
 <h1>🌌 TQH / RSN-8638</h1>
-<p><strong>Адельный QECC-калькулятор:</strong> массы, стабильность, три поколения из p-адических полей.</p>
+<p><strong>Adelic QECC Calculator:</strong> masses, stability, three generations from p-adic fields.</p>
 <div class="container">
 <div class="card">
-<h2>⚡ Калькулятор массы</h2>
+<h2>⚡ Mass Calculator</h2>
 <p>\( M_n = m_e \cdot e^{k \cdot n} \)</p>
-<div class="formula">m<sub>e</sub> = 0.511 МэВ &nbsp; k = 0.0064466</div>
+<div class="formula">m<sub>e</sub> = 0.511 MeV &nbsp; k = 0.0064466</div>
 <label>n: </label><input type="number" id="nInput" value="1166" step="1">
-<button onclick="calcM()">Рассчитать</button>
+<button onclick="calcM()">Calculate</button>
 <div id="massResult" class="result"></div>
 <canvas id="massChart" width="400" height="250"></canvas>
 </div>
 <div class="card">
-<h2>📊 PDG-верификация</h2>
-<table><thead><tr><th>Частица</th><th>n</th><th>M_RSN</th><th>M_PDG</th><th>Δ%</th></tr></thead>
+<h2>📊 PDG Verification</h2>
+<table><thead><tr><th>Particle</th><th>n</th><th>M_RSN</th><th>M_PDG</th><th>Δ%</th></tr></thead>
 <tbody id="tbl"></tbody></table>
 </div>
 <div class="card">
 <h2>🔒 QECC [[8638, k<sub>c</sub>, 155]]</h2>
 <p>d = ⌊1/k⌋ = <strong>155</strong></p>
 <p>P<sub>log</sub>: <span id="pLog">—</span></p>
-<p>C<sub>mem</sub>: <span id="memCap">—</span> бит</p>
-<p>E<sub>bit</sub> (300K): <span id="landauer">—</span> эВ</p>
-<p>Стабильность: \(P\sim10^{-52000}\) ✅</p>
-<button onclick="calcQ()">Обновить QECC</button>
+<p>C<sub>mem</sub>: <span id="memCap">—</span> bits</p>
+<p>E<sub>bit</sub> (300K): <span id="landauer">—</span> eV</p>
+<p>Stability: \(P\sim10^{-52000}\) ✅</p>
+<button onclick="calcQ()">Update QECC</button>
 </div>
 <div class="card">
-<h2>🧮 Адельная интерпретация</h2>
-<p><strong>N = 2 · 7 · 617</strong> → три p-адических поля → <strong>три поколения</strong></p>
+<h2>🧮 Adelic Interpretation</h2>
+<p><strong>N = 2 · 7 · 617</strong> → three p-adic fields → <strong>three generations</strong></p>
 <div class="formula">ℍ = ℍ₂ ⊗ ℍ₇ ⊗ ℍ₆₁₇</div>
 <p>ε ≈ 1/(2·7) = 1/14 = 0.0714 <br>ε RSN = 9/125 = 0.072 (Δ=0.8%)</p>
-<p>∏(1-p⁻²)⁻¹ = 1.3611 для p∈{2,7,617}</p>
-<p>✔ Четвёртого поколения нет — N не имеет 4-го простого</p>
+<p>∏(1-p⁻²)⁻¹ = 1.3611 for p∈{2,7,617}</p>
+<p>✔ No fourth generation — N has no 4th prime factor</p>
 </div>
 </div>
 <footer>PDG 2024, CODATA. TQH/RSN-8638. tools/qec_adelic.html</footer>
@@ -80,7 +80,7 @@ function render(){
 }
 window.calcM=function(){
   const n=parseFloat(document.getElementById('nInput').value);if(isNaN(n))return;
-  const m=M(n);document.getElementById('massResult').innerHTML=`M<sub>${n}</sub> = ${m.toExponential(6)} МэВ (${(m/1000).toExponential(4)} ГэВ)`;updChart(n);
+  const m=M(n);document.getElementById('massResult').innerHTML=`M<sub>${n}</sub> = ${m.toExponential(6)} MeV (${(m/1000).toExponential(4)} GeV)`;updChart(n);
 };
 let chart;
 function updChart(fn){
@@ -88,7 +88,7 @@ function updChart(fn){
   const xs=[],ys=[];
   for(let n=0;n<=2500;n+=50){xs.push(n);ys.push(M(n));}
   if(chart)chart.destroy();
-  chart=new Chart(ctx,{type:'line',data:{labels:xs,datasets:[{label:'M_n (МэВ)',data:ys,borderColor:'#1e3a8a',fill:true,tension:0.1},{label:`n=${fn}`,data:[{x:fn,y:M(fn)}],type:'scatter',pointBackgroundColor:'red',pointRadius:6,showLine:false}]},options:{responsive:true,scales:{y:{type:'log',title:{display:true,text:'МэВ'}},x:{title:{display:true,text:'n'}}}}});
+  chart=new Chart(ctx,{type:'line',data:{labels:xs,datasets:[{label:'M_n (MeV)',data:ys,borderColor:'#1e3a8a',fill:true,tension:0.1},{label:`n=${fn}`,data:[{x:fn,y:M(fn)}],type:'scatter',pointBackgroundColor:'red',pointRadius:6,showLine:false}]},options:{responsive:true,scales:{y:{type:'log',title:{display:true,text:'MeV'}},x:{title:{display:true,text:'n'}}}}});
 }
 function calcQ(){
   const pt=0.103,pe=eps,exp=-d*(pt-pe)/pt;document.getElementById('pLog').innerHTML=Math.exp(exp).toExponential(2);

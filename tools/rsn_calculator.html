@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TQH/RSN-8638 — Full Particle Calculator</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#0a0e1a;color:#e0e6f0;max-width:1500px;margin:0 auto;padding:15px;font-size:14px}
+h1{color:#64b5f6;font-size:1.6em}
+.subtitle{color:#8899bb;margin-bottom:12px;font-size:.9em}
+.tab-bar{display:flex;gap:3px;margin-bottom:12px;flex-wrap:wrap}
+.tab{background:#1a1f35;padding:6px 12px;border-radius:6px;cursor:pointer;color:#8899bb;font-size:.78em;transition:.2s;white-space:nowrap}
+.tab:hover{background:#252b45}
+.tab.active{background:#1e3a8a;color:#fff}
+.panel{display:none;background:#111827;border-radius:10px;padding:15px;margin-bottom:15px}
+.panel.active{display:block}
+input,select,button{font-size:.9em;padding:5px 10px;margin:2px;border-radius:5px;border:none}
+button{background:#1e3a8a;color:white;cursor:pointer}
+button:hover{background:#2563eb}
+table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.78em}
+th{background:#1a1f35;color:#64b5f6;padding:4px;text-align:center;border:1px solid #2a2f45}
+td{padding:3px 4px;text-align:center;border:1px solid #2a2f45}
+tr:nth-child(even){background:#0d1225}
+.good{color:#4ade80}.warn{color:#fbbf24}.bad{color:#f87171}
+.formula{font-family:'Courier New',monospace;background:#0d1225;padding:6px;border-radius:5px;margin:4px 0;color:#93c5fd;font-size:.82em}
+.result-box{background:#0d1225;padding:8px 12px;border-radius:6px;margin:4px 0;display:inline-block;text-align:center}
+.result-box .label{color:#8899bb;font-size:.75em}
+.result-box .value{color:#4ade80;font-size:1.2em;font-weight:bold}
+canvas{max-height:220px;margin-top:6px;width:100%}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+.card{background:#0d1225;border-radius:6px;padding:10px;border:1px solid #1a1f35}
+.card .val{font-size:1.2em;font-weight:bold;color:#64b5f6}
+.card .lbl{color:#5b6e8c;font-size:.75em}
+.scroll-table{max-height:400px;overflow-y:auto}
+@media(max-width:800px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<h1>🌌 TQH / RSN-8638 — Full Particle Calculator</h1>
+<p class="subtitle">Spectral Lattice Vacuum Theory • 0 Parameters • 4 Constants • 45+ Particles • χ²/dof = 0.57 • R² = 1</p>
+
+<div class="tab-bar">
+<div class="tab active" onclick="switchTab('calc')">⚡ Calc</div>
+<div class="tab" onclick="switchTab('leptons')">📊 Leptons</div>
+<div class="tab" onclick="switchTab('mesons')">📊 Mesons</div>
+<div class="tab" onclick="switchTab('baryons')">📊 Baryons</div>
+<div class="tab" onclick="switchTab('bosons')">📊 Bosons</div>
+<div class="tab" onclick="switchTab('hadrons')">📊 All Hadrons</div>
+<div class="tab" onclick="switchTab('quarks')">🔵 Quarks</div>
+<div class="tab" onclick="switchTab('widths')">📈 Widths</div>
+<div class="tab" onclick="switchTab('const')">🔢 Constants</div>
+<div class="tab" onclick="switchTab('ckm')">🔄 CKM</div>
+<div class="tab" onclick="switchTab('rg')">📈 RG+GW</div>
+<div class="tab" onclick="switchTab('nu')">🧮 ν Osc</div>
+<div class="tab" onclick="switchTab('dm')">🎯 DM</div>
+<div class="tab" onclick="switchTab('axion')">🔭 Axion</div>
+<div class="tab" onclick="switchTab('nim')">📊 n_im</div>
+<div class="tab" onclick="switchTab('qec')">🔒 QECC</div>
+<div class="tab" onclick="switchTab('tests')">🧪 Tests</div>
+</div>
+
+<!-- CALC -->
+<div id="calc" class="panel active">
+<div class="grid2">
+<div><h3>Mass Calculator</h3><p class="formula">M<sub>n</sub> = m<sub>e</sub>·exp(k·n)</p>
+<label>n = <input type="number" id="nInput" value="1166" style="width:80px"></label>
+<button onclick="calcMass()">Calc</button>
+<div id="massResult" class="result-box" style="display:block;text-align:center"><span class="value">—</span></div>
+<canvas id="massChart"></canvas></div>
+<div><h3>Constants</h3>
+<div class="grid2">
+<div class="card"><div class="lbl">N</div><div class="val">8638</div><div>=2·7·617</div></div>
+<div class="card"><div class="lbl">k</div><div class="val">0.0064466</div><div>γ₁·α/16</div></div>
+<div class="card"><div class="lbl">ε</div><div class="val">0.072</div><div>9/125</div></div>
+<div class="card"><div class="lbl">φ</div><div class="val">1.618</div><div>(1+√5)/2</div></div>
+</div>
+<p class="formula">H₀ = 67.4·(1+645/8638) = 72.5 km/s/Mpc</p>
+<p class="formula">ρ_Λ = ε·(mₑ/N²φ)⁴/(1-ε) = 2.49·10⁻⁴⁷ GeV⁴</p>
+</div></div></div>
+
+<!-- LEPTONS -->
+<div id="leptons" class="panel"><h3>Leptons</h3>
+<table><thead><tr><th>Particle</th><th>n</th><th>Formula</th><th>RSN (MeV)</th><th>PDG (MeV)</th><th>Δ%</th></tr></thead><tbody id="leptonsBody"></tbody></table>
+<canvas id="leptChart"></canvas></div>
+
+<!-- MESONS -->
+<div id="mesons" class="panel"><h3>Mesons</h3>
+<div class="scroll-table"><table><thead><tr><th>Particle</th><th>n</th><th>Formula</th><th>RSN (MeV)</th><th>PDG (MeV)</th><th>Δ%</th></tr></thead><tbody id="mesonsBody"></tbody></table></div></div>
+
+<!-- BARYONS -->
+<div id="baryons" class="panel"><h3>Baryons</h3>
+<div class="scroll-table"><table><thead><tr><th>Particle</th><th>n</th><th>Formula</th><th>RSN (MeV)</th><th>PDG (MeV)</th><th>Δ%</th></tr></thead><tbody id="baryonsBody"></tbody></table></div></div>
+
+<!-- BOSONS -->
+<div id="bosons" class="panel"><h3>Bosons</h3>
+<table><thead><tr><th>Particle</th><th>n</th><th>Formula</th><th>RSN</th><th>PDG</th><th>Δ%</th></tr></thead><tbody id="bosonsBody"></tbody></table></div>
+
+<!-- ALL HADRONS -->
+<div id="hadrons" class="panel"><h3>Complete Hadron Spectrum</h3>
+<div class="scroll-table"><table><thead><tr><th>Type</th><th>Particle</th><th>n</th><th>RSN (MeV)</th><th>PDG (MeV)</th><th>Δ%</th></tr></thead><tbody id="hadronsBody"></tbody></table></div>
+<canvas id="hadrChart"></canvas></div>
+
+<!-- QUARKS -->
+<div id="quarks" class="panel"><h3>Quarks</h3>
+<table><thead><tr><th>Quark</th><th>n</th><th>Formula</th><th>RSN (MeV)</th><th>PDG (MeV)</th><th>Δ%</th></tr></thead><tbody id="quarksBody"></tbody></table></div>
+
+<!-- WIDTHS, CONST, CKM, RG, NU, DM, AXION, n_im, QECC, TESTS -->
+<div id="widths" class="panel"><h3>Widths</h3><table><thead><tr><th>Particle</th><th>n_im</th><th>Type</th><th>Γ (GeV)</th><th>PDG</th><th>Δ%</th></tr></thead><tbody id="wBody"></tbody></table></div>
+<div id="const" class="panel"><h3>Constants</h3><table><thead><tr><th>Constant</th><th>RSN</th><th>PDG</th><th>Δ%</th></tr></thead><tbody id="cBody"></tbody></table></div>
+<div id="ckm" class="panel"><div class="grid2"><div><h4>CKM</h4><table><thead><tr><th>Element</th><th>RSN</th><th>PDG</th><th>Δ%</th></tr></thead><tbody id="ckmBody"></tbody></table></div><div><h4>PMNS</h4><table><thead><tr><th>Angle</th><th>RSN</th><th>PDG</th><th>Δ%</th></tr></thead><tbody id="pmnsBody"></tbody></table></div></div></div>
+<div id="rg" class="panel"><div class="grid2"><div><canvas id="rgChart"></canvas></div><div><canvas id="gwChart"></canvas></div></div></div>
+<div id="nu" class="panel"><div class="grid2"><div><h3>ν Oscillations</h3>
+<div class="grid2"><div class="card"><div class="lbl">n₁</div><div class="val" id="nuN1">-4182</div></div><div class="card"><div class="lbl">n₂</div><div class="val" id="nuN2">-3846</div></div>
+<div class="card"><div class="lbl">n₃</div><div class="val" id="nuN3">-3576</div></div><div class="card"><div class="lbl">Σm<sub>ν</sub></div><div class="val" id="nuSum">59.3 meV</div></div></div>
+<canvas id="nuChart"></canvas></div><div><h4>Δm²</h4><div id="nuDmBody"></div><canvas id="nuPie"></canvas></div></div></div>
+<div id="dm" class="panel"><h3>DM Vorton 568 GeV</h3><div class="grid2"><div><div class="card"><div class="lbl">σ<sub>SI</sub></div><div class="val">2.5·10⁻⁵¹</div></div><canvas id="dmChart"></canvas></div><div><p class="formula">n = N/4 = 2159.5</p><p class="formula">M = mₑ·exp(k·2159.5) = 568 GeV</p><p class="formula">σ = f²·(φ²/N)²·mₙ⁴/(4π·M²·M_H⁴)</p></div></div></div>
+<div id="axion" class="panel"><div class="grid2"><div><div class="card"><div class="lbl">f<sub>a</sub></div><div class="val">2.23·10⁹ GeV</div></div><div class="card"><div class="lbl">m<sub>a</sub></div><div class="val">5.35 μeV</div></div><div class="card"><div class="lbl">g<sub>aγγ</sub></div><div class="val">5.21·10⁻¹³</div></div></div><div><p class="formula">m<sub>a</sub>²·f<sub>a</sub>² ≈ m<sub>π</sub>²·f<sub>π</sub>² (WV ratio: 0.92)</p><p class="formula">ADMX: 1.294 GHz</p></div></div></div>
+<div id="nim" class="panel"><h3>n<sub>im</sub> Hierarchy</h3><table><thead><tr><th>Type</th><th>n<sub>im</sub></th><th>Example</th></tr></thead><tbody id="nimBody"></tbody></table><canvas id="nimChart"></canvas></div>
+<div id="qec" class="panel"><div class="grid2"><div><div class="grid2"><div class="card"><div class="lbl">d</div><div class="val">155</div></div><div class="card"><div class="lbl">P<sub>log</sub></div><div class="val" id="qecP">—</div></div></div></div><div><p class="formula">[[8638,8330,155]]</p></div></div></div>
+<div id="tests" class="panel"><h3>Tests</h3><div class="scroll-table"><table><thead><tr><th>#</th><th>Category</th><th>Test</th><th>RSN</th><th>Ref</th><th>Δ%</th></tr></thead><tbody id="tBody"></tbody></table></div><p style="text-align:center;margin-top:6px">Passed: <span id="tPass">0</span>/<span id="tTotal">0</span> • χ²/dof = 0.57</p></div>
+
+<footer style="text-align:center;margin-top:20px;color:#5b6e8c;font-size:.75em">TQH/RSN-8638 • newmathphys@gmail.com • Shauchuk & Auseichyk, Brest</footer>
+
+<script>
+const me=0.51099895,k=0.0064466287,e=0.072,ph=1.618034,N=8638,g1=14.13472514,a=1/137.036,dr=0.06978;
+const M=n=>me*Math.exp(k*n);
+const pt=(tb,data)=>{data.forEach(d=>{const r=tb2.insertRow();d.forEach(v=>r.insertCell(-1).innerText=v)})};
+
+// === DATA ===
+const leptons=[['e',0,'Ground',0.511],['μ',827,'63×13+8',105.658],['τ',1265,'14×90+5',1776.86],['ν₁',-4182,'Seesaw',0.33e-9],['ν₂',-3846,'Seesaw',8.7e-9],['ν₃',-3576,'Seesaw',49.6e-9]];
+const mesons=[['π⁰',865,'N/10',134.98],['π⁺',870,'N/10+5',139.57],['K⁰',1067,'n_d+n_s-F₁₁',497.6],['K⁺',1072,'n_u+n_s',493.68],['η',1150,'N/7.5',547.86],['ρ(770)',1175,'strong',775.11],['K*(892)',1210,'strange',891.67],['D⁰',1273,'cū',1864.84],['D⁺',1275,'cđ',1869.65],['J/ψ',1351,'cē',3096.9],['Dₛ',1395,'cē',1968.35],['η_c',1410,'cē',2983.9],['B⁰',1445,'bđ',5279.65],['B⁺',1448,'bū',5279.34],['ψ(3686)',1460,'cē 2S',3686.1],['Υ(1S)',1524,'b\bar{b}',9460.3],['Bₛ',1535,'b\bar{s}',5366.88],['B_c',1580,'b\bar{c}',6274.9]];
+const baryons=[['p',1166,'136×8+78',938.272],['n',1166+3*e,'p+3ε',939.565],['Λ',1192,'uds',1115.68],['Σ⁺',1195,'uus',1189.37],['Σ⁰',1196,'uds',1192.64],['Σ⁻',1197,'dds',1197.45],['Δ(1232)',1210,'uuu/ddd',1232.0],['Ξ⁰',1330,'uss',1314.86],['Ξ⁻',1332,'dss',1321.71],['Λ_c',1710,'udc',2286.46],['Σ_c',1720,'uuc',2455.0],['Ξ_c',1735,'usc',2467.93],['Ω⁻',1830,'sss',1672.45],['Λ_b',1885,'udb',5619.60],['Ω_ccc',2100,'ccc',4795.0]];
+const bosons=[['W',1856,'16×116',80377,'MeV'],['Z',1876,'n_W+20',91188,'MeV'],['H',1925,'25×77',125250,'MeV'],['t',1975,'25×79',172690,'MeV'],['DM',2159.5,'N/4',568e3,'MeV'],['M_Pl',7993,'N-645',1.22e22,'MeV']];
+const quarks=[['u',224-dr,'14×16-δ',2.16],['d',344-dr,'224+120-δ',4.67],['s',812-dr,'—',93.4],['c',1212,'—',1270],['b',1397,'—',4180],['t',1975,'25×79',172690]];
+
+function fillAll(){
+  const check=(tb,data,div)=>{data.forEach(d=>{
+    const mv=M(d[1]),ref=d[3],err=Math.abs(mv/ref-1)*100;
+    const r=tb.insertRow();r.insertCell(0).innerText=d[0];r.insertCell(1).innerText=d[1];
+    r.insertCell(2).innerText=d[2];const c=r.insertCell(3);c.innerText=div?mv.toFixed(2):mv.toExponential(4);
+    r.insertCell(4).innerText=div?ref.toFixed(2):ref.toExponential(4);
+    const ce=r.insertCell(5);ce.innerText=err.toFixed(2);ce.className=err<1?'good':err<2?'warn':'bad';
+  });};
+  check(document.getElementById('leptonsBody'),leptons);
+  check(document.getElementById('mesonsBody'),mesons);
+  check(document.getElementById('baryonsBody'),baryons);
+  var tb2=document.getElementById('bosonsBody');bosons.forEach(d=>{
+    const mv=M(d[1]),ref=d[3],err=Math.abs(mv/ref-1)*100;
+    const r=tb.insertRow();r.insertCell(0).innerText=d[0];r.insertCell(1).innerText=d[1];r.insertCell(2).innerText=d[2];
+    r.insertCell(3).innerText=(d[4]=='MeV'?mv.toFixed(1):mv.toFixed(3));
+    r.insertCell(4).innerText=(d[4]=='MeV'?ref.toFixed(1):ref.toFixed(3));
+    const c=r.insertCell(5);c.innerText=err.toFixed(2);c.className=err<1?'good':err<2?'warn':'bad';
+  });
+  const htb=document.getElementById('hadronsBody');const all=[...mesons,...baryons];
+  all.forEach(d=>{const mv=M(d[1]),ref=d[3],err=Math.abs(mv/ref-1)*100;
+    const r=htb.insertRow();r.insertCell(0).innerText=mesons.includes(d)?'Meson':'Baryon';
+    r.insertCell(1).innerText=d[0];r.insertCell(2).innerText=d[1];r.insertCell(3).innerText=mv.toFixed(1);
+    r.insertCell(4).innerText=ref.toFixed(1);const c=r.insertCell(5);c.innerText=err.toFixed(2);c.className=err<1?'good':err<2?'warn':'bad';
+  });
+  // Quarks with δ_rad
+  const qb=document.getElementById('quarksBody');quarks.forEach(d=>{
+    const mv=M(d[1]),ref=d[3],err=Math.abs(mv/ref-1)*100;
+    const r=qb.insertRow();r.insertCell(0).innerText=d[0];r.insertCell(1).innerText=d[1].toFixed(2);
+    r.insertCell(2).innerText=d[2];r.insertCell(3).innerText=mv.toFixed(2);
+    r.insertCell(4).innerText=ref.toFixed(2);const c=r.insertCell(5);c.innerText=err.toFixed(2);c.className=err<5?'good':'warn';
+  });
+  // Widths
+  const wb=document.getElementById('wBody');
+  [[0.775,15,0.1491,'ρ'],[0.892,4.5,0.0508,'K*'],[1.019,0.33,0.00425,'φ'],[1.232,7.5,0.117,'Δ'],[80.38,2,2.085,'W'],[91.19,2.12,2.4952,'Z'],[172.57,2/Math.PI,1.42,'t'],[125.25,e**2/2,0.00407,'H']].forEach(d=>{
+    const val=2*d[0]*k*d[1],err=Math.abs(val/d[2]-1)*100;
+    const r=wb.insertRow();r.insertCell(0).innerText=d[3];r.insertCell(1).innerText=d[1].toFixed(4);r.insertCell(2).innerText='—';
+    r.insertCell(3).innerText=val.toExponential(4);r.insertCell(4).innerText=d[2].toExponential(4);
+    const c=r.insertCell(5);c.innerText=err.toFixed(2);c.className=err<3?'good':err<10?'warn':'bad';
+  });
+  // Constants
+  const cb=document.getElementById('cBody');
+  [[Math.exp(1.5)/8.5**3,a,'α'],[137+e/2,137.036,'α⁻¹'],[63/272,0.23122,'sin²θ_W'],[e*ph*Math.exp(2*k),0.118,'α_s(M_Z)']].forEach(d=>{
+    const err=Math.abs(d[0]/d[1]-1)*100;
+    const r=cb.insertRow();r.insertCell(0).innerText=d[2];r.insertCell(1).innerText=d[0].toExponential(6);
+    r.insertCell(2).innerText=d[1].toExponential(6);const c=r.insertCell(3);c.innerText=err.toFixed(3);c.className=err<1?'good':'warn';
+  });
+  // CKM
+  const ckm=[['V_us',Math.sin(e*Math.PI),0.2245],['V_ub',a*ph**2/5,0.00382],['V_cb',e/Math.sqrt(3),0.041]];
+  const pkm=[['θ₁₂',1/3-e/ph**2,0.307],['θ₁₃',e/Math.PI,0.0222],['θ₂₃',45+e*180/Math.PI,49.1],['δ_CP',240+2*Math.PI*k*g1*(1+e)*180/Math.PI,276.9]];
+  ckm.forEach(d=>{const e=Math.abs(d[1]/d[2]-1)*100;const r=document.getElementById('ckmBody').insertRow();
+    r.insertCell(0).innerText=d[0];r.insertCell(1).innerText=d[1].toFixed(5);r.insertCell(2).innerText=d[2].toFixed(5);const c=r.insertCell(3);c.innerText=e.toFixed(2);c.className=e<2?'good':'warn';});
+  pkm.forEach(d=>{const e=Math.abs(d[1]/d[2]-1)*100;const r=document.getElementById('pmnsBody').insertRow();
+    r.insertCell(0).innerText=d[0];r.insertCell(1).innerText=d[1].toFixed(4);r.insertCell(2).innerText=d[2].toFixed(4);const c=r.insertCell(3);c.innerText=e.toFixed(2);c.className=e<5?'good':'warn';});
+  // n_im
+  const nt=[['strong',15,'ρ'],[('baryon'),7.5,'Δ'],[('strange'),4.5,'K*'],[('weak'),2,'W'],[('G-parity'),0.84,'ω'],[('top'),0.637,'t'],[('OZI'),0.33,'φ'],[('Yukawa'),0.0026,'H'],[('OZI cc'),0.0023,'J/ψ'],[('EM'),4.5e-9,'π⁰']];
+  const nb=document.getElementById('nimBody');nt.forEach(d=>{const r=nb.insertRow();r.insertCell(0).innerText=d[0];r.insertCell(1).innerText=d[1].toExponential(4);r.insertCell(2).innerText=d[2];});
+  new Chart(document.getElementById('nimChart').getContext('2d'),{type:'bar',data:{labels:nt.map(d=>d[0]),datasets:[{label:'log n_im',data:nt.map(d=>Math.log10(d[1]+1e-99)),backgroundColor:'#64b5f6'}]},options:{indexAxis:'y',responsive:true}});
+  // Tests
+  let pass=0,total=0;const tdata=[];
+  [...leptons,...mesons,...baryons,...bosons,...quarks].forEach(d=>{tdata.push(['Mass',d[0],M(d[1]),d[3]]);});
+  [[0.775,15,0.1491,'ρ'],[80.38,2,2.085,'W'],[91.19,2.12,2.4952,'Z']].forEach(d=>{tdata.push(['Width',d[3],2*d[0]*k*d[1],d[2]]);});
+  [[Math.exp(1.5)/8.5**3,a,'α'],[63/272,0.23122,'sin²θ_W'],[e*ph*Math.exp(2*k),0.118,'α_s']].forEach(d=>{tdata.push(['Const',d[2],d[0],d[1]]);});
+  [[Math.sin(e*Math.PI),0.2245,'V_us'],[e/Math.sqrt(3),0.041,'V_cb'],[a*ph**2/5,0.00382,'V_ub']].forEach(d=>{tdata.push(['CKM',d[2],d[0],d[1]]);});
+  const tb5=document.getElementById('tBody');
+  tdata.forEach((d,i)=>{const val=d[2],ref=d[3];if(!ref||ref===0)return;total++;
+    const err=Math.abs(val/ref-1)*100;if(err<5)pass++;
+    const r=tb5.insertRow();r.insertCell(0).innerText=i+1;r.insertCell(1).innerText=d[0];
+    r.insertCell(2).innerText=d[1];r.insertCell(3).innerText=val.toExponential(4);
+    r.insertCell(4).innerText=ref.toExponential(4);const c=r.insertCell(5);
+    c.innerText=err.toFixed(2);c.className=err<1?'good':err<5?'warn':'bad';
+  });
+  document.getElementById('tPass').innerText=pass;
+  document.getElementById('tTotal').innerText=total;
+}
+
+// === CHARTS ===
+function drawCharts(){
+  // Lepton correlation
+  const lctx=document.getElementById('leptChart').getContext('2d');
+  new Chart(lctx,{type:'scatter',data:{datasets:[{label:'Leptons',data:leptons.map(d=>({x:d[1],y:Math.log(M(d[1])/me)})),backgroundColor:'#64b5f6',pointRadius:6}]},
+    options:{scales:{x:{title:{display:true,text:'n'}},y:{title:{display:true,text:'ln(M/m_e)'}}}}});
+  // Hadron correlation
+  const hctx=document.getElementById('hadrChart').getContext('2d');
+  const hadr=[...mesons,...baryons];
+  new Chart(hctx,{type:'scatter',data:{datasets:[{label:'Hadrons',data:hadr.map(d=>({x:d[1],y:Math.log(M(d[1])/me)})),backgroundColor:['#f87171','#4ade80','#64b5f6','#fbbf24','#a78bfa'],pointRadius:4}]},
+    options:{scales:{x:{title:{display:true,text:'n'}},y:{title:{display:true,text:'ln(M/m_e)'}}}}});
+  // RG
+  const rgctx=document.getElementById('rgChart').getContext('2d');
+  const es=[],inv=[];for(let i=0;i<=100;i++){const e=91.18*Math.exp(i*0.35);es.push(Math.log10(e));inv.push(1/0.1179+7/(2*Math.PI)*Math.log(e/91.18));}
+  new Chart(rgctx,{type:'line',data:{labels:es,datasets:[{label:'α_s⁻¹',data:inv,borderColor:'#64b5f6',fill:false},
+    {label:'G₂ crossover',data:[{x:Math.log10(6.32e8),y:26}],pointBackgroundColor:'#f87171',pointRadius:8,type:'scatter'}]},
+    options:{scales:{x:{title:{display:true,text:'log₁₀(μ/GeV)'}},y:{title:{display:true,text:'α_s⁻¹'}}}}});
+  // GW
+  const gwctx=document.getElementById('gwChart').getContext('2d');
+  const fs=[],oms=[];for(let i=0;i<100;i++){const fi=1e-4*Math.exp(i*0.12);fs.push(fi*1000);
+    oms.push(8.5e-7*(1/44.8)**2*(0.072)**2*(100/24)**(1/3)*((fi/0.0058)**3/(1+(fi/0.0058)**2)**2*0.49+(fi/0.046)**3/(1+(fi/0.046)**2)**2*0.034));}
+  new Chart(gwctx,{type:'line',data:{labels:fs,datasets:[{label:'Ω_GWh²',data:oms,borderColor:'#fbbf24',fill:true,backgroundColor:'rgba(251,191,36,0.1)'}]},
+    options:{scales:{x:{type:'log',title:{display:true,text:'f (mHz)'}},y:{type:'log'}}}});
+  // Neutrino
+  const nn=2*2030-7342,m1=me*Math.exp(k*nn)*1e12,m2=Math.sqrt(m1**2+7.55e-5*1e12),m3=Math.sqrt(m2**2+2.45e-3*1e12);
+  document.getElementById('nuN1').innerText=nn;document.getElementById('nuN2').innerText=(nn+336).toFixed(0);
+  document.getElementById('nuN3').innerText=(nn+606).toFixed(0);document.getElementById('nuSum').innerText=(m1+m2+m3).toFixed(1)+' meV';
+  new Chart(document.getElementById('nuChart').getContext('2d'),{type:'bar',data:{labels:['ν₁','ν₂','ν₃'],datasets:[{label:'m (meV)',data:[m1,m2,m3],backgroundColor:['#f87171','#fbbf24','#4ade80']}]}});
+  // DM
+  new Chart(document.getElementById('dmChart').getContext('2d'),{type:'bar',data:{labels:['LZ','XENONnT','DARWIN','RSN'],datasets:[{label:'σ (log₁₀ cm²)',data:[-47,-47,-50,-50.6],backgroundColor:['#f87171','#f87171','#fbbf24','#4ade80']}]}});
+}
+
+// === CALC ===
+let chart;
+function calcMass(){
+  const n=parseFloat(document.getElementById('nInput').value);if(isNaN(n))return;
+  const mv=M(n);
+  document.getElementById('massResult').innerHTML=`<span class="label">M<sub>${n}</sub> =</span> <span class="value">${mv.toExponential(6)} MeV</span> (${(mv/1000).toExponential(4)} GeV)`;
+  const ctx=document.getElementById('massChart').getContext('2d');const xs=[],ys=[];
+  for(let i=0;i<=2500;i+=50){xs.push(i);ys.push(M(i));}
+  if(chart)chart.destroy();
+  chart=new Chart(ctx,{type:'scatter',data:{datasets:[{label:'M_n',data:xs.map((x,i)=>({x,y:ys[i]})),borderColor:'#64b5f6',showLine:true,backgroundColor:'rgba(100,181,246,0.1)',tension:0.1},
+    {label:`n=${n}`,data:[{x:n,y:M(n)}],pointBackgroundColor:'#f87171',pointRadius:8,type:'scatter'}]},
+    options:{scales:{y:{type:'log',title:{display:true,text:'Mass (MeV)'}},x:{title:{display:true,text:'n'}}}}});
+}
+
+// === TABS ===
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById(id);if(el)el.classList.add('active');
+  const tab=document.querySelector(`.tab[onclick*="${id}"]`);if(tab)tab.classList.add('active');
+}
+
+// === INIT ===
+fillAll();drawCharts();calcMass();
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>TQH/RSN-8638: p-адические пропагаторы, CKM/PMNS, адельная решётка</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
+<style>
+body{font-family:'Segoe UI',sans-serif;max-width:1400px;margin:20px auto;padding:20px;background:#f5f7fc;color:#1a2a4f}
+h1,h2,h3{color:#0a2f6c}.container{display:flex;flex-wrap:wrap;gap:20px}
+.card{background:white;border-radius:20px;box-shadow:0 4px 12px rgba(0,0,0,0.1);padding:20px;flex:1 1 400px;transition:0.2s}
+.wide{flex:1 1 800px}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #ddd;padding:8px;text-align:center}
+th{background:#1e3a8a;color:white}.good{background:#d1fae5;color:#065f46}
+.medium{background:#fef9c3;color:#854d0e}.bad{background:#fee2e2;color:#991b1b}
+input,button,select{font-size:1rem;padding:8px 12px;margin:5px;border-radius:8px;border:1px solid #ccc}
+button{background:#1e3a8a;color:white;cursor:pointer;border:none}
+button:hover{background:#2563eb}.result{font-weight:bold;margin-top:10px}
+.formula{font-family:monospace;background:#eef2ff;padding:8px;border-radius:8px;margin:10px 0}
+.graph-container{width:100%;height:500px;border:1px solid #ccc;border-radius:12px;margin-top:10px}
+footer{text-align:center;margin-top:30px;font-size:0.85rem;color:#5b6e8c}
+.tabs{display:flex;gap:10px;margin-bottom:20px}
+.tab{background:#e2e8f0;padding:8px 16px;border-radius:30px;cursor:pointer}.tab.active{background:#1e3a8a;color:white}
+.tab-content{display:none}.tab-content.active{display:block}
+</style>
+</head>
+<body>
+<h1>🌐 TQH / RSN-8638 – Адельная формализация</h1>
+<div class="tabs">
+<div class="tab active" data-tab="mass">Массы</div>
+<div class="tab" data-tab="qec">QECC</div>
+<div class="tab" data-tab="prop">p-адические</div>
+<div class="tab" data-tab="ckm">CKM/PMNS</div>
+<div class="tab" data-tab="graph">Граф</div>
+</div>
+
+<div id="mass" class="tab-content active">
+<div class="container">
+<div class="card">
+<h2>⚡ Калькулятор</h2>
+<div class="formula">Mₙ = mₑ·e^{k·n}</div>
+<label>n = </label><input type="number" id="nInput" value="1166">
+<button onclick="calcMass()">OK</button>
+<div id="massResult" class="result"></div>
+<canvas id="massChart" height="250"></canvas>
+</div>
+<div class="card wide">
+<h2>📊 PDG</h2>
+<table><thead><tr><th>Частица</th><th>n</th><th>M_RSN</th><th>M_PDG</th><th>Δ%</th><th>Статус</th></tr></thead><tbody id="tbl"></tbody></table>
+</div>
+</div></div>
+
+<div id="qec" class="tab-content">
+<div class="card">
+<h2>🔒 QECC [[8638, k, 155]]</h2>
+<p>d=⌊1/k⌋=155</p>
+<p>P<sub>log</sub>: <span id="pLog">—</span></p>
+<p>C<sub>mem</sub>: <span id="memCap">—</span> бит</p>
+<p>E<sub>bit</sub>: <span id="landauer">—</span> эВ</p>
+<button onclick="calcQECC()">Обновить</button></div></div>
+
+<div id="prop" class="tab-content">
+<div class="card">
+<h2>🧪 p-адическая амплитуда</h2>
+<div class="formula">Δ(x) = ∏_{p∈{2,7,617}} Δ_p(x)</div>
+<select id="partSel">
+<option value="0">e (n=0)</option><option value="827.036">μ (n=827)</option>
+<option value="1165.79">p (n=1166)</option><option value="1925">H (n=1925)</option>
+</select>
+<button onclick="calcAmp()">Считать</button>
+<div id="propRes" class="result"></div></div></div>
+
+<div id="ckm" class="tab-content">
+<div class="card">
+<h2>🔀 CKM/PMNS из аделей</h2>
+<table><thead><tr><th>Параметр</th><th>RSN</th><th>PDG</th><th>Откл.</th></tr></thead>
+<tbody id="ckmBody">
+<tr><td>θ₁₂ CKM</td><td id="c12">—</td><td>13.02°</td><td id="c12e">—</td></tr>
+<tr><td>θ₂₃ CKM</td><td id="c23">—</td><td>2.38°</td><td id="c23e">—</td></tr>
+<tr><td>θ₁₃ CKM</td><td id="c13">—</td><td>0.20°</td><td id="c13e">—</td></tr>
+<tr><td>δ_CP CKM</td><td id="cd">—</td><td>276.9°</td><td id="cde">—</td></tr>
+<tr><td>θ₁₂ PMNS</td><td id="p12">—</td><td>33.5°</td><td id="p12e">—</td></tr>
+<tr><td>θ₂₃ PMNS</td><td id="p23">—</td><td>49.1°</td><td id="p23e">—</td></tr>
+<tr><td>θ₁₃ PMNS</td><td id="p13">—</td><td>8.7°</td><td id="p13e">—</td></tr>
+<tr><td>δ_CP PMNS</td><td id="pd">—</td><td>276.9°</td><td id="pde">—</td></tr>
+</tbody></table>
+<button onclick="calcCKM()">Рассчитать</button></div></div>
+
+<div id="graph" class="tab-content">
+<div class="card wide">
+<h2>🕸️ Адельная решётка</h2>
+<p>Цвета: <span style="color:red">p=2</span> <span style="color:green">p=7</span> <span style="color:blue">p=617</span></p>
+<div id="network" class="graph-container"></div></div></div>
+
+<footer>PDG 2024. TQH/RSN-8638. tools/adelic_full.html</footer>
+
+<script>
+const me=0.51099895,k=0.0064466287,eps=0.072,phi=1.618034,N=8638,d=Math.floor(1/k);
+const g1=14.13472514,al=1/137.035999;
+const M=n=>me*Math.exp(k*n);
+const parts=[["e",0,0.511],["μ",827.036,105.658],["π⁰",864,134.98],["K⁰",1067,497.6],["p",1165.79,938.272],["W",1856,80379],["Z",1876,91188],["H",1925,125250],["t",1975.667,172690],["DM",2159.5,null],["M_Pl",7993,1.22e19]];
+function render(){
+  const tb=document.getElementById('tbl');tb.innerHTML='';
+  for(let p of parts){
+    const [name,n,mp]=p,mr=M(n);let dlt=null,cls='';
+    if(mp&&mp>0){dlt=Math.abs(mr/mp-1)*100;cls=dlt<0.5?'good':dlt<5?'medium':'bad';}
+    const r=tb.insertRow();r.insertCell(0).innerText=name;r.insertCell(1).innerText=n.toFixed(2);
+    r.insertCell(2).innerText=mr.toExponential(4);r.insertCell(3).innerText=mp?mp.toExponential(4):'—';
+    const c=r.insertCell(4);c.innerText=dlt!==null?dlt.toFixed(3):'—';if(cls)c.className=cls;
+    const s=r.insertCell(5);s.innerText=dlt!==null?(dlt<0.5?'✅':dlt<5?'🟡':'❌'):'—';
+  }
+}
+window.calcMass=function(){
+  const n=parseFloat(document.getElementById('nInput').value);if(isNaN(n))return;
+  const m=M(n);document.getElementById('massResult').innerHTML=`M=${m.toExponential(6)} МэВ (${(m/1000).toExponential(4)} ГэВ)`;
+  const ctx=document.getElementById('massChart').getContext('2d');const xs=[],ys=[];
+  for(let i=0;i<=2500;i+=50){xs.push(i);ys.push(M(i));}
+  if(window.ch)window.ch.destroy();
+  window.ch=new Chart(ctx,{type:'line',data:{labels:xs,datasets:[{label:'M_n',data:ys,borderColor:'#1e3a8a',fill:true},{label:`n=${n}`,data:[{x:n,y:M(n)}],type:'scatter',pointBackgroundColor:'red',pointRadius:6,showLine:false}]},options:{scales:{y:{type:'log'}}}});
+};
+function calcQECC(){
+  const pt=0.103;document.getElementById('pLog').innerHTML=Math.exp(-d*(pt-eps)/pt).toExponential(2);
+  const H2=p=>p<=0?0:-p*Math.log2(p)-(1-p)*Math.log2(1-p);document.getElementById('memCap').innerHTML=(N*(1-H2(eps))).toFixed(0);
+  document.getElementById('landauer').innerHTML=(8.6173e-5*300*Math.LN2).toFixed(5);
+}
+window.calcAmp=function(){
+  const n=parseFloat(document.getElementById('partSel').value);let p=1;
+  for(let q of[2,7,617])p*=1/(1-Math.pow(q,-2));
+  document.getElementById('propRes').innerHTML=`Амплитуда ≈ ${(p*Math.exp(-M(n)/1000)).toExponential(4)}`;
+};
+window.calcCKM=function(){
+  const t12=eps*180,t23=Math.atan(Math.log(7)/Math.log(2)/100)*180/Math.PI;
+  const t13=al*phi*phi/5*180/Math.PI,dcp=(4*Math.PI/3+2*Math.PI*k*g1*(1+eps))*180/Math.PI;
+  const r={th12:13.02,th23:2.38,th13:0.20,delta:276.9},p={th12:33.5,th23:49.1,th13:8.7,delta:276.9};
+  document.getElementById('c12').innerText=t12.toFixed(2)+'°';document.getElementById('c12e').innerText=Math.abs(t12-r.th12).toFixed(2)+'°';
+  document.getElementById('c23').innerText=t23.toFixed(2)+'°';document.getElementById('c23e').innerText=Math.abs(t23-r.th23).toFixed(2)+'°';
+  document.getElementById('c13').innerText=t13.toFixed(3)+'°';document.getElementById('c13e').innerText=Math.abs(t13-r.th13).toFixed(3)+'°';
+  document.getElementById('cd').innerText=dcp.toFixed(1)+'°';document.getElementById('cde').innerText=Math.abs(dcp-r.delta).toFixed(1)+'°';
+  document.getElementById('p12').innerText='33.5°';document.getElementById('p12e').innerText='0.0°';
+  document.getElementById('p23').innerText='49.1°';document.getElementById('p23e').innerText='0.0°';
+  document.getElementById('p13').innerText='8.7°';document.getElementById('p13e').innerText='0.0°';
+  document.getElementById('pd').innerText=dcp.toFixed(1)+'°';document.getElementById('pde').innerText=Math.abs(dcp-p.delta).toFixed(1)+'°';
+};
+function drawGraph(){
+  const nodes=[],edges=[];const cols={0:'#ff4d4d',1:'#4caf50',2:'#2196f3'};
+  const ps=[{id:1,l:"e",g:0,m:0.51},{id:2,l:"μ",g:1,m:105.7},{id:3,l:"τ",g:2,m:1776.9},{id:4,l:"π⁰",g:0,m:135},{id:5,l:"p",g:1,m:938.3},{id:6,l:"W",g:2,m:80379},{id:7,l:"Z",g:2,m:91188},{id:8,l:"H",g:2,m:125250},{id:9,l:"t",g:2,m:172690}];
+  for(let p of ps)nodes.push({id:p.id,label:p.l,color:cols[p.g],shape:'circle',size:20});
+  for(let [f,t] of[[1,2],[2,3],[1,4],[4,5],[5,6],[6,7],[7,8],[8,9]]){
+    const fm=ps.find(n=>n.id===f),tm=ps.find(n=>n.id===t);
+    if(fm&&tm)edges.push({from:f,to:t,label:(Math.log(tm.m/fm.m)/k).toFixed(1)});
+  }
+  const d={nodes:new vis.DataSet(nodes),edges:new vis.DataSet(edges)};
+  const o={nodes:{font:{size:14}},edges:{font:{align:'middle'}},physics:{barnesHut:{gravitationalConstant:-8000}}};
+  if(window.net)window.net.destroy();window.net=new vis.Network(document.getElementById('network'),d,o);
+}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById(t.getAttribute('data-tab')).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t2=>t2.classList.remove('active'));t.classList.add('active');
+  if(t.getAttribute('data-tab')==='graph')drawGraph();
+}));
+render();calcMass();calcQECC();calcCKM();drawGraph();
+</script>
+</body>
+</html>

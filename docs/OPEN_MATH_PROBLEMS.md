@@ -25,8 +25,8 @@ $$\mathcal{H}_{\rm weak} = \frac{G_F}{\sqrt{2}} \sum_{i,j} V_{ij} \, J_i^\mu J_{
 |-----------|-------|--------|
 | $n_s$ | 812 | $\ln(m_s/m_e)/k$ |
 | $n_d$ | 344 | $\ln(m_d/m_e)/k$ |
-| $n_{\rm im}(s)$ | 0.54 | $\dim(G_2)\cdot\varepsilon = 7.5\cdot\varepsilon$ |
-| $n_{\rm im}(d)$ | 7.5 | $\dim(G_2)/2$ |
+| $n_{\mathrm{im}}(s)$ | 0.54 | $\mathrm{dim}(G_2)\cdot\varepsilon = 7.5\cdot\varepsilon$ |
+| $n_{\mathrm{im}}(d)$ | 7.5 | $\mathrm{dim}(G_2)/2$ |
 | $\Delta m_K$ | $3.484\times10^{-15}$ GeV | PDG |
 | $\delta_{CP}$ | $275.2^\circ$ | $4\pi/3 + 2\pi k\gamma_1(1+\varepsilon)$ |
 

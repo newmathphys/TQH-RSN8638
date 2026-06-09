@@ -4,7 +4,7 @@
 
 | Constant | Symbol | Value | Derivation |
 |----------|--------|-------|------------|
-| Vacuum capacity | $N$ | $8638 = 2\cdot7\cdot617$ | $\operatorname{round}(63/\alpha + 3\pi/2)$ |
+| Vacuum capacity | $N$ | $8638 = 2\cdot7\cdot617$ | $\mathrm{round}(63/\alpha + 3\pi/2)$ |
 | Lattice step | $k$ | $0.0064466287$ | $\gamma_1\alpha/16$ |
 | Topological diffusion | $\varepsilon$ | $9/125 = 0.072$ | $\beta_0^{\rm QCD}(N_f=3) / 5^3$ |
 | Golden ratio | $\varphi$ | $(1+\sqrt{5})/2$ | $A_5$ icosahedral symmetry |
@@ -106,13 +106,13 @@ $$V_{\rm CKM}V_{\rm CKM}^\dagger = I \pm \mathcal{O}(10^{-5})$$
 
 The Lagrangian of the theory is given by the spectral action principle:
 
-$$\mathcal{L}_{\rm RSN} = \operatorname{Tr}(f(D/\Lambda))$$
+$$\mathcal{L}_{\rm RSN} = \mathrm{Tr}(f(D/\Lambda))$$
 
 where $D$ is the Dirac operator on the $G_2$-lattice and $\Lambda = m_e e^{kN/2}$ is the cutoff scale.
 
 Feynman rules emerge from the expansion:
 
-$$\operatorname{Tr}(f(D/\Lambda)) = \sum_{n=0}^{\infty} f_{2n} \Lambda^{4-2n} \operatorname{Tr}(D^{2n})$$
+$$\mathrm{Tr}(f(D/\Lambda)) = \sum_{n=0}^{\infty} f_{2n} \Lambda^{4-2n} \mathrm{Tr}(D^{2n})$$
 
 ## 6. Key Mathematical Results
 

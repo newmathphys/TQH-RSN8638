@@ -63,7 +63,7 @@
 ### 1. Vacuum as Information Lattice
 The vacuum is a discrete non-commutative lattice with capacity $N = 8638$ bits. This number is not arbitrary—it derives from the fine-structure constant:
 
-$$N = \operatorname{round}\left(\frac{63}{\alpha} + \frac{3\pi}{2}\right) = 8638$$
+$$N = \mathrm{round}\left(\frac{63}{\alpha} + \frac{3\pi}{2}\right) = 8638$$
 
 ### 2. Mass as Spectral Flow
 Particle masses are eigenvalues of the Dirac operator on this lattice:
@@ -78,7 +78,7 @@ $N = 2 \cdot 7 \cdot 617$ factorizes into 3 primes → exactly 3 fermion generat
 $$\mathcal{H} = \mathcal{H}_2 \otimes \mathcal{H}_7 \otimes \mathcal{H}_{617}$$
 
 ### 4. G₂ Holonomy
-The exceptional Lie group $G_2$ (automorphisms of octonions, $\dim = 14$) governs the topological structure. The spontaneous breaking $G_2 \to SU(3)_c$ at the GUT scale generates the Standard Model gauge group.
+The exceptional Lie group $G_2$ (automorphisms of octonions, $\mathrm{dim} = 14$) governs the topological structure. The spontaneous breaking $G_2 \to SU(3)_c$ at the GUT scale generates the Standard Model gauge group.
 
 ## Two Observation Modes
 

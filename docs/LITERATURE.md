@@ -25,7 +25,7 @@ $$N(T) \sim \frac{T}{2\pi}\ln\frac{T}{2\pi e}$$
 
 **Key work:** Connes A. (1994). *Noncommutative Geometry*. Academic Press.
 
-Connes showed that spacetime can be described not by points but by an algebra of functions. The spectral action $S = \operatorname{Tr}(f(D/\Lambda))$ automatically generates the Standard Model Lagrangian.
+Connes showed that spacetime can be described not by points but by an algebra of functions. The spectral action $S = \mathrm{Tr}(f(D/\Lambda))$ automatically generates the Standard Model Lagrangian.
 
 **Parallels between Connes and RSN:**
 
@@ -34,7 +34,7 @@ Connes showed that spacetime can be described not by points but by an algebra of
 | Spectrum of $D$ | $M_n = m_e e^{k|n|}$ |
 | $\dim F = 2^4$ | $\dim Cl_{1,3} = 16$ |
 | $SU(3)\times SU(2)\times U(1)$ | $G_2 \to SU(3)\times SU(2)^2$ |
-| Spectral action principle | $\mathcal{L}_{\rm RSN} = \operatorname{Tr}(f(D/\Lambda))$ |
+| Spectral action principle | $\mathcal{L}_{\mathrm{RSN}} = \mathrm{Tr}(f(D/\Lambda))$ |
 
 **Further reading:**
 - Connes A. (1994). *Noncommutative Geometry*. Academic Press.

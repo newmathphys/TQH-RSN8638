@@ -33,7 +33,7 @@
 
 All particle masses, coupling constants, mixing angles, and cosmological parameters are derived from **4 fundamental constants** with **zero fitting parameters**. The theory has been verified against **45+ experimental observables** with a statistical fitness of **$\chi^2/\text{dof} = 0.57$** and a perfect mass correlation of **$R^2 = 1.000000$**.
 
-The framework provides a **physical imperative for the Riemann Hypothesis**: the stability of baryonic matter requires $\operatorname{Re}(s) = 1/2$ for all non-trivial zeros of the Riemann zeta function.
+The framework provides a **physical imperative for the Riemann Hypothesis**: the stability of baryonic matter requires $\mathrm{Re}(s) = 1/2$ for all non-trivial zeros of the Riemann zeta function.
 
 ---
 
@@ -41,7 +41,7 @@ The framework provides a **physical imperative for the Riemann Hypothesis**: the
 
 | Constant | Value | Origin | Role |
 |----------|-------|--------|------|
-| $N$ | **8638** = $2 \times 7 \times 617$ | $\dim(G_2) \cdot p_{113} = 14 \times 617$ | Vacuum information capacity |
+| $N$ | **8638** = $2 \times 7 \times 617$ | $\,\mathrm{dim}(G_2) \cdot p_{113} = 14 \times 617$ | Vacuum information capacity |
 | $k$ | **0.0064466** = $\gamma_1\alpha/16$ | 1st Riemann zero $\times$ fine-structure / 16 | Lattice step (mass ladder) |
 | $\varepsilon$ | **0.072** = $9/125$ | $\beta_0^{\text{QCD}}(N_f=3) / 5^3$ | Topological diffusion |
 | $\varphi$ | **1.618034** = $(1+\sqrt{5})/2$ | Golden ratio | Phase stability |
@@ -51,7 +51,7 @@ The framework provides a **physical imperative for the Riemann Hypothesis**: the
 | Constant | Formula | RSN Value | PDG Value | $\Delta$ |
 |----------|---------|-----------|-----------|----------|
 | $\alpha$ | $e^{3/2} / 8.5^3$ | 0.00729768 | 0.00729735 | 0.0045% |
-| $\sin^2\theta_W$ | $63/272 = \dim(SU(8))/2\dim(SO(17))$ | 0.231618 | 0.23122 | 0.17% |
+| $\sin^2\theta_W$ | $63/272 = \mathrm{dim}(SU(8))/2\,\mathrm{dim}(SO(17))$ | 0.231618 | 0.23122 | 0.17% |
 | $\alpha_s(M_Z)$ | $\varepsilon \cdot \varphi \cdot e^{2k}$ | 0.11801 | 0.11800 | 0.01% |
 | $n_s$ | $1 - \varepsilon/2$ | 0.9640 | 0.9649 | 0.10% |
 
@@ -73,7 +73,7 @@ where $n$ is a topological quantum number derived from **Lie group dimensional i
 
 The index theorem on the $G_2$ manifold proves exactly three generations:
 
-$$I(G_2) = \frac{\dim(G_2) - \dim(SU(3))}{2} = \frac{14 - 8}{2} = 3$$
+$$I(G_2) = \frac{\mathrm{dim}(G_2) - \mathrm{dim}(SU(3))}{2} = \frac{14 - 8}{2} = 3$$
 
 A fourth generation is **mathematically impossible** (trivial center $Z(G_2)=\{1\}$).
 
@@ -81,7 +81,7 @@ A fourth generation is **mathematically impossible** (trivial center $Z(G_2)=\{1
 
 Running the QCD RG equation from $M_Z$ to $10^8$ GeV:
 
-$$\alpha_s^{-1}(\Delta E) \approx 26.02 = 2 \times (\dim(G_2) - 1) = 26$$
+$$\alpha_s^{-1}(\Delta E) \approx 26.02 = 2 \times (\mathrm{dim}(G_2) - 1) = 26$$
 
 ### 🟢 Neutrino Seesaw
 
@@ -272,10 +272,10 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 ## 👥 Authors
 
-- **Vital Kalinouski** — [newmathphys@gmail.com](mailto:newmathphys@gmail.com)
+- **Vital Kalinouski** — [newmathphys@gmail.com](mailto:newmathphys@gmail.com) — [ORCID 0009-0003-1963-2665](https://orcid.org/0009-0003-1963-2665)
 - **Viachaslau Auseichyk**
 
-Independent Research Group, Brest and Babruysk, Republic of Belarus.
+Independent Research Group, Brest and Babruysk, Republic of Belarus. 🌐 [newmathphys.com](https://newmathphys.com/)
 
 Based on the foundational work of **T. Shauchuk and V. Auseichyk**, Brest (2020).
 

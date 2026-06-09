@@ -4,8 +4,8 @@
 
 | Statement | Proof |
 |-----------|-------|
-| $M_n = m_e e^{kn}$ | Spectrum of Dirac operator $D = i\gamma^0(E^+-E^-)/(2k)$ on the lattice. $n$ is a quantum number (eigenvalue of $L = k^{-1}\operatorname{arsinh}(k\hat{D})$) |
-| $N = 8638 = \operatorname{round}(63/\alpha + 3\pi/2)$ | $63=\dim(SU(8))$, $3\pi/2$ = hemisphere volume. $8637.98\to 8638$, $\Delta=0.0002\%$ |
+| $M_n = m_e e^{kn}$ | Spectrum of Dirac operator $D = i\gamma^0(E^+-E^-)/(2k)$ on the lattice. $n$ is a quantum number (eigenvalue of $L = k^{-1}\mathrm{arsinh}(k\hat{D})$) |
+| $N = 8638 = \mathrm{round}(63/\alpha + 3\pi/2)$ | $63=\dim(SU(8))$, $3\pi/2$ = hemisphere volume. $8637.98\to 8638$, $\Delta=0.0002\%$ |
 | $k = \gamma_1\alpha/16$ | Berry-Keating operator on the lattice |
 | $\varepsilon_{\rm bare} = 1/14$ | Adelic structure $N = 2\cdot7\cdot617$ |
 | $\varepsilon_{\rm eff} = 9/125$ | $\beta_0^{\rm QCD}/5^3$ with radiative corrections ($\Delta=\alpha_s\ln(N)/(2\pi)$) |
@@ -31,7 +31,7 @@
 | Question | Comment |
 |----------|---------|
 | $m_e$ as absolute scale | $m_e = M_{\rm Pl}/\exp(k\cdot7993)$ — one free scale parameter |
-| $N = \operatorname{round}(63/\alpha+3\pi/2)$ | Rounding to integer is a weak point |
+| $N = \mathrm{round}(63/\alpha+3\pi/2)$ | Rounding to integer is a weak point |
 | Comparison with SUSY/String | RSN: 4 constants. SUSY: $\mathcal{O}(30)$. String: $\mathcal{O}(50+)$. RSN is orders of magnitude more predictive |
 
 ## 4. ✅ Resolved During Audit

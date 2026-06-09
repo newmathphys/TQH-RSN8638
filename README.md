@@ -230,7 +230,9 @@ TQH-RSN8638/
 │   ├── OPEN_MATH_PROBLEMS.md        # 3 open mathematical problems
 │   ├── HONEST_AUDIT.md              # Honest audit of the theory
 │   └── РЕЗУЛЬТАТЫ_ВЕРИФИКАЦИИ.md    # Complete verification results
-├── AGENTS.md                        # Full theory documentation (1500+ lines)
+├── ARCHITECTURE.md                  # Architecture overview (English)
+├── MATHEMATICS.md                   # Mathematical foundations (English)
+├── LITERATURE.md                    # Literature references (English)
 └── README.md                        # This file
 ```
 

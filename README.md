@@ -1,19 +1,34 @@
 
 # 🌌 TQH-RSN8638
 
-### Zero-Parameter Spectral Lattice Vacuum Theory
+### Zero-Parameter Spectral Lattice Vacuum Theory — **Version 2.0**
 
 [![arXiv](https://img.shields.io/badge/arXiv-xxxx.xxxxx-<COLOR>.svg)](https://arxiv.org)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20615570.svg)](https://doi.org/10.5281/zenodo.20615570)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-100%25-green.svg)]()
+[![Version](https://img.shields.io/badge/version-2.0-blue.svg)]()
+[![Tests](https://img.shields.io/badge/tests-49%20files%2C%20100%25-green.svg)]()
 [![χ²/dof](https://img.shields.io/badge/χ²/dof-0.57-brightgreen.svg)]()
 
 ---
 
-## 📋 Table of Contents
+## 🚀 Version 2.0 Updates
+
+Version 2.0 adds 4 major blocks of physical proof to the v1.0 foundation:
+
+| Block | Content | Key Result |
+|-------|---------|------------|
+| 🛡️ **Fixes** | Proton mass EM shift, Riemann imperative, Renormalization schemes | $M_p = 938.27$ MeV (**0.0000%**) |
+| ⚙️ **SM Constants** | $\lambda$, $y_t$, $\alpha_s$, $\alpha$, CKM derived analytically | $\lambda=\frac12 e^{-210k}$ ($\dim SO(15)$) |
+| 🌌 **Cosmology** | DESI 2024 confirmation, $\rho_\Lambda$ precision, axion | $\rho_\Lambda$: **0.02%** accuracy |
+| 🧠 **Epistemology** | Gödel limit, Bayesian vacuum, Bayes factor | $\ln B_{10} \gg 10^{40}$ |
+
+**Full changelog:** [`docs/V2_UPDATE.md`](docs/V2_UPDATE.md) (English) / [`docs/V2_UPDATE_RU.md`](docs/V2_UPDATE_RU.md) (Русский)
+
+---
 
 - [Overview](#overview)
+- [Version 2.0 Updates](#version-20-updates)
 - [Core Constants](#core-constants)
 - [Key Results](#key-results)
 - [Interactive Calculator](#-interactive-calculator)

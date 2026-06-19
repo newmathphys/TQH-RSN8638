@@ -148,6 +148,8 @@ The complete preprint is available in LaTeX (PRD/revtex4-2 format):
 
 All predictions are derived from **4 constants only**. No fitting parameters are used anywhere.
 
+**Full report:** `docs/VERIFICATION.md` (16 sections A-P, 17K).
+
 ### How to Verify
 
 #### Method A: Web Calculator
@@ -155,13 +157,14 @@ Open `tools/rsn_calculator.html` in browser → **Tests** tab → 42+ tests with
 
 #### Method B: Python (requires numpy)
 ```bash
-cd OMNI_V12_ANALYTIC
+cd TQH-RSN8638
 
-# 69 tests, 100% pass rate
-python3 tests/test_100_methodologies.py
-
-# 27+ independent checks
-python3 tests/verify_everything.py
+# Full verification suite — 49 test files
+python3 tests/verify_everything.py        # 27+ PDG checks
+python3 tests/test_100_methodologies.py   # 69 tests, 100% pass rate
+python3 tests/test_v12_analytic.py        # Main analytic suite
+python3 verify_v12_analytic.py            # Full verification script
+python3 audit_formulas.py                 # 79 formula audit
 ```
 
 #### Method C: Manual Calculation
@@ -221,17 +224,32 @@ TQH-RSN8638/
 ├── tools/
 │   ├── rsn_calculator.html          # Full interactive calculator (20 tabs)
 │   ├── qec_adelic.html              # QECC + Adelic browser tool
-│   ├── adelic_full.html             # p-adic propagators + CKM graph
+│   ├── adelic_full.html             # p-adic propagators + CKM + graph
 │   └── qec_adelic_calculator.py     # Python CLI calculator
+├── tests/
+│   ├── verify_everything.py         # 27+ PDG checks, 0 parameters
+│   ├── test_100_methodologies.py    # 69 tests, 11 sections, 100% pass
+│   ├── test_v12_analytic.py         # Main analytic test suite (854 lines)
+│   ├── test_decay_widths_database.py# Decay width database (30+ resonances)
+│   ├── test_final_verification.py   # Final verification (12 sections)
+│   └── 44 more test files...        # Full test suite (49 files total)
+├── verify_v12_analytic.py           # Full analytic verification script (12K)
+├── audit_formulas.py                # Formula audit script (14K, 79 formulas)
+├── requirements.txt                 # Python dependencies
 ├── docs/
 │   ├── TQH_paper_clean.tex          # LaTeX preprint (PRD format)
-│   ├── VERIFICATION_README.txt      # Full verification protocol
+│   ├── VERIFICATION.md              # Complete verification report (17K, 16 sections A-P)
+│   ├── VERIFICATION_README.txt      # Short verification protocol
 │   ├── ADELLIC_THEOREM.md           # Rigorous generations theorem proof
 │   ├── OPEN_MATH_PROBLEMS.md        # 5 open mathematical problems
 │   ├── HONEST_AUDIT.md              # Honest audit of the theory
 │   ├── ARCHITECTURE.md              # Theory architecture overview
 │   ├── MATHEMATICS.md               # Complete mathematical foundations
-│   └── LITERATURE.md                # Key literature references
+│   ├── LITERATURE.md                # Key literature references
+│   ├── TECHNICAL_MANUAL.md          # Technical manual & methodology
+│   ├── TEST_METHODOLOGY_AUDIT.md    # Testing methodology audit (60 methods)
+│   ├── V12_GROUND_TRUTH.md          # Complete mass theory reference (62K)
+│   └── 10_PROBLEM_CHECK.md          # 10 critical problems resolution
 ├── ARCHITECTURE.md                  # Architecture overview (English)
 ├── MATHEMATICS.md                   # Mathematical foundations (English)
 ├── LITERATURE.md                    # Literature references (English)

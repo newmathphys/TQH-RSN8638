@@ -226,6 +226,15 @@ TQH-RSN8638/
 │   ├── qec_adelic.html              # QECC + Adelic browser tool
 │   ├── adelic_full.html             # p-adic propagators + CKM + graph
 │   └── qec_adelic_calculator.py     # Python CLI calculator
+├── AGENTS.md                         # Full theory documentation (Russian, 1500+ lines)
+├── verify_v12_analytic.py           # Full analytic verification script (12K)
+├── audit_formulas.py                # Formula audit script (14K, 79 formulas)
+├── requirements.txt                 # Python dependencies
+├── tools/
+│   ├── rsn_calculator.html          # Full interactive calculator (20 tabs)
+│   ├── qec_adelic.html              # QECC + Adelic browser tool
+│   ├── adelic_full.html             # p-adic propagators + CKM + graph
+│   └── qec_adelic_calculator.py     # Python CLI calculator
 ├── tests/
 │   ├── verify_everything.py         # 27+ PDG checks, 0 parameters
 │   ├── test_100_methodologies.py    # 69 tests, 11 sections, 100% pass
@@ -233,27 +242,21 @@ TQH-RSN8638/
 │   ├── test_decay_widths_database.py# Decay width database (30+ resonances)
 │   ├── test_final_verification.py   # Final verification (12 sections)
 │   └── 44 more test files...        # Full test suite (49 files total)
-├── verify_v12_analytic.py           # Full analytic verification script (12K)
-├── audit_formulas.py                # Formula audit script (14K, 79 formulas)
-├── requirements.txt                 # Python dependencies
-├── docs/
-│   ├── TQH_paper_clean.tex          # LaTeX preprint (PRD format)
-│   ├── VERIFICATION.md              # Complete verification report (17K, 16 sections A-P)
-│   ├── VERIFICATION_README.txt      # Short verification protocol
-│   ├── ADELLIC_THEOREM.md           # Rigorous generations theorem proof
-│   ├── OPEN_MATH_PROBLEMS.md        # 5 open mathematical problems
-│   ├── HONEST_AUDIT.md              # Honest audit of the theory
-│   ├── ARCHITECTURE.md              # Theory architecture overview
-│   ├── MATHEMATICS.md               # Complete mathematical foundations
-│   ├── LITERATURE.md                # Key literature references
-│   ├── TECHNICAL_MANUAL.md          # Technical manual & methodology
-│   ├── TEST_METHODOLOGY_AUDIT.md    # Testing methodology audit (60 methods)
-│   ├── V12_GROUND_TRUTH.md          # Complete mass theory reference (62K)
-│   └── 10_PROBLEM_CHECK.md          # 10 critical problems resolution
-├── ARCHITECTURE.md                  # Architecture overview (English)
-├── MATHEMATICS.md                   # Mathematical foundations (English)
-├── LITERATURE.md                    # Literature references (English)
-└── README.md                        # This file
+└── docs/
+    ├── TQH_paper_clean.tex          # LaTeX preprint (PRD format)
+    ├── VERIFICATION.md              # Complete verification (English, 16 sections A-P)
+    ├── VERIFICATION_README.txt      # Short verification protocol (English)
+    ├── РЕЗУЛЬТАТЫ_ВЕРИФИКАЦИИ.md    # Complete verification (Русский, 4560 строк)
+    ├── ADELLIC_THEOREM.md           # Generations theorem proof (English)
+    ├── OPEN_MATH_PROBLEMS.md        # 5 open problems (English)
+    ├── HONEST_AUDIT.md              # Honest audit (English)
+    ├── ARCHITECTURE.md              # Theory architecture (English)
+    ├── MATHEMATICS.md               # Math foundations (English)
+    ├── LITERATURE.md                # Literature references (English)
+    ├── TECHNICAL_MANUAL.md          # Technical manual (English)
+    ├── TEST_METHODOLOGY_AUDIT.md    # Methodology audit (English)
+    ├── V12_GROUND_TRUTH.md          # Mass theory (Русский, 62K)
+    └── 10_PROBLEM_CHECK.md          # 10 problems (English)
 ```
 
 ---
